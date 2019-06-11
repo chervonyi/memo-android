@@ -2,10 +2,22 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowNoTitle">true</item>
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/colorAccent</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+    </style>
+
+
+
+    <style name="CheckBoxDark" parent="Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:buttonTint">#000</item>
+    </style>
+
+    <style name="CheckBoxLight" parent="Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:buttonTint">#FFF</item>
     </style>
 
 </resources>
