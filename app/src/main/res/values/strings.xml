@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Memo</string>
+    <string name="empty_box_label">You do not have any tasks.</string>
 </resources>

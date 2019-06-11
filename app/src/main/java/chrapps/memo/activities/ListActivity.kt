@@ -2,6 +2,7 @@ package chrapps.memo.activities
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.LinearLayout
 import chrapps.memo.R
 import chrapps.memo.models.Card
@@ -12,13 +13,17 @@ class ListActivity : AppCompatActivity() {
 
     // UI
     private lateinit var listContainer: LinearLayout
+    private lateinit var emptyBoxLabel: LinearLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list)
 
         listContainer = findViewById(R.id.card_container)
+        emptyBoxLabel = findViewById(R.id.label_empty_box);
 
+
+//        emptyBoxLabel.visibility = View.VISIBLE
         test()
     }
 
