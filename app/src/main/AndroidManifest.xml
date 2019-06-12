@@ -12,16 +12,18 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".activities.SettingsActivity">
+
+        </activity>
+        <activity android:name=".activities.CardActivity">
+
+        </activity>
+        <activity android:name=".activities.ListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.CardActivity">
-
-        </activity>
-        <activity android:name=".activities.ListActivity"></activity>
     </application>
 
 </manifest>

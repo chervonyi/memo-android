@@ -30,7 +30,7 @@ class ListActivity : AppCompatActivity() {
 
     private fun test() {
 
-        val card = Card("My title", ArrayList(), R.drawable.card_yellow)
+        val card = Card("My title", ArrayList(), R.drawable.card_violet)
         card.tasks.add(Task("My some task #1", true))
         card.tasks.add(Task("My some task #2", false))
         card.tasks.add(Task("My some task #3", true))
