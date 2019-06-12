@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Memo</string>
     <string name="empty_box_label">You do not have any tasks.</string>
+    <string name="create_new_card_header">Create a new card</string>
+    <string name="edit_card_header">Edit card</string>
+    <string name="hint_title">Title</string>
 </resources>
