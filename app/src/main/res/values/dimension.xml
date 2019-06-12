@@ -2,4 +2,6 @@
 <resources>
     <dimen name="header_size">40dp</dimen>
     <dimen name="icon_size">40dp</dimen>
+    <dimen name="settings_theme_button_width">160dp</dimen>
+    <dimen name="settings_theme_button_height">45dp</dimen>
 </resources>

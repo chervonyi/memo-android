@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.SettingsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/header_size">
+
+            <ImageButton
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:src="@drawable/ic_arrow_back_black"
+                android:scaleType="centerCrop"
+                android:padding="5dp"
+                android:background="@null"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:textColor="@color/font"
+            android:textSize="22sp"
+            android:layout_marginTop="10dp"
+            android:text="@string/theme"
+            tools:ignore="RtlSymmetry" />
+
+        <Button
+            android:layout_width="@dimen/settings_theme_button_width"
+            android:layout_height="@dimen/settings_theme_button_height"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/theme_button_cloud"
+            android:text="@string/theme_cloud"
+            style="?android:attr/borderlessButtonStyle" />
+
+        <Button
+            android:layout_width="@dimen/settings_theme_button_width"
+            android:layout_height="@dimen/settings_theme_button_height"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/theme_button_lazurite"
+            android:textColor="@color/font_white_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/theme_lazurite"
+            style="?android:attr/borderlessButtonStyle" />
+
+        <Button
+            android:layout_width="@dimen/settings_theme_button_width"
+            android:layout_height="@dimen/settings_theme_button_height"
+            android:background="@drawable/theme_button_underground"
+            android:textColor="@color/font_white_content"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/theme_underground"
+            style="?android:attr/borderlessButtonStyle" />
+
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

@@ -4,4 +4,8 @@
     <string name="create_new_card_header">Create a new card</string>
     <string name="edit_card_header">Edit card</string>
     <string name="hint_title">Title</string>
+    <string name="theme">Theme</string>
+    <string name="theme_cloud">Cloud</string>
+    <string name="theme_lazurite">Lazurite</string>
+    <string name="theme_underground">Underground</string>
 </resources>
