@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Constants -->
+
+    <!-- Cards -->
     <color name="card_yellow_color">#FFCE00</color>
+    <color name="card_yellow_red">#DE3939</color>
+    <color name="card_yellow_green">#1BA340</color>
+    <color name="card_yellow_cyan">#2BBAE5</color>
+    <color name="card_yellow_blue">#2A1BDD</color>
     <color name="card_yellow_violet">#2F0065</color>
+
+    <!-- Constants -->
     <color name="transparent">#00FFFFFF</color>
 
 
