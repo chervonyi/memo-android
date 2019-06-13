@@ -22,7 +22,8 @@
                 android:src="@drawable/ic_arrow_back_black"
                 android:scaleType="centerCrop"
                 android:padding="5dp"
-                android:background="@null"/>
+                android:background="@null"
+                android:onClick="goBack"/>
 
         </RelativeLayout>
 

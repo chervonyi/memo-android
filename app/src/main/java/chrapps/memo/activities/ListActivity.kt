@@ -1,5 +1,6 @@
 package chrapps.memo.activities
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -20,7 +21,7 @@ class ListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_list)
 
         listContainer = findViewById(R.id.card_container)
-        emptyBoxLabel = findViewById(R.id.label_empty_box);
+        emptyBoxLabel = findViewById(R.id.label_empty_box)
 
 
 //        emptyBoxLabel.visibility = View.VISIBLE
@@ -38,5 +39,26 @@ class ListActivity : AppCompatActivity() {
 
         var cardView = CardView(card,this)
         listContainer.addView(cardView)
+    }
+
+    fun goToCreateNewCard(view: View) {
+        val intent = Intent(this, CardActivity::class.java)
+        startActivity(intent)
+        finish()
+        overridePendingTransition(R.anim.enter_from_right, R.anim.exit_from_right)
+    }
+
+    fun goToEditCard(view: View) {
+        val intent = Intent(this, CardActivity::class.java)
+        startActivity(intent)
+        finish()
+        overridePendingTransition(R.anim.enter_from_right, R.anim.exit_from_right)
+    }
+
+    fun goToSettings(view: View) {
+        val intent = Intent(this, SettingsActivity::class.java)
+        startActivity(intent)
+        finish()
+        overridePendingTransition(R.anim.enter_from_right, R.anim.exit_from_right)
     }
 }

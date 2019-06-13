@@ -7,6 +7,7 @@ import android.view.inputmethod.EditorInfo
 import chrapps.memo.R
 import chrapps.memo.views.TaskEditView
 import android.content.Context
+import android.content.Intent
 import android.view.inputmethod.InputMethodManager
 import android.view.View
 import android.widget.*
@@ -101,5 +102,12 @@ class CardActivity : AppCompatActivity() {
         // Hide keyboard
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(titleView.windowToken, 0)
+    }
+
+    fun goBack(view: View) {
+        val intent = Intent(this, ListActivity::class.java)
+        startActivity(intent)
+        finish()
+        overridePendingTransition(R.anim.enter_from_left, R.anim.exit_from_left)
     }
 }
