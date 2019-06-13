@@ -11,6 +11,7 @@ import android.content.Intent
 import android.view.inputmethod.InputMethodManager
 import android.view.View
 import android.widget.*
+import chrapps.memo.components.JSONManager
 
 
 class CardActivity : AppCompatActivity() {
@@ -20,6 +21,10 @@ class CardActivity : AppCompatActivity() {
     private lateinit var titleView: TextView
     private lateinit var dummyElement: LinearLayout
 
+
+    // Json
+    private var jsonManager = JSONManager()
+    
     private var selectedColorId = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {

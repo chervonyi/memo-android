@@ -12,7 +12,7 @@ import chrapps.memo.models.Card
 
 
 @SuppressLint("ViewConstructor")
-class CardView(card: Card, context: Context) : LinearLayout(context) {
+class CardView(id: Int, card: Card, context: Context) : LinearLayout(context) {
 
     private val mContext: Context = context
 
