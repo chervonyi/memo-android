@@ -1,13 +1,46 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="CloudAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="windowNoTitle">true</item>
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorAccent</item>
         <item name="colorAccent">@color/colorAccent</item>
 
+        <!-- Theme colors -->
+        <item name="background_color">@color/background_cloud</item>
+        <item name="font_color">@color/font_cloud</item>
+        <item name="hint_color">@color/hint_cloud</item>
+        <item name="border_color">@color/border_color_cloud</item>
+    </style>
+
+    <style name="LazuriteAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowNoTitle">true</item>
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorAccent</item>
+        <item name="colorAccent">@color/font_white_content</item>
+
+        <!-- Theme colors -->
+        <item name="background_color">@color/background_lazurite</item>
+        <item name="font_color">@color/font_lazurite</item>
+        <item name="hint_color">@color/hint_lazurite</item>
+        <item name="border_color">@color/border_lazurite</item>
+    </style>
+
+    <style name="UndergroundAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowNoTitle">true</item>
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorAccent</item>
+        <item name="colorAccent">@color/font_white_content</item>
+
+        <!-- Theme colors -->
+        <item name="background_color">@color/background_underground</item>
+        <item name="font_color">@color/font_underground</item>
+        <item name="hint_color">@color/hint_underground</item>
+        <item name="border_color">@color/border_underground</item>
     </style>
 
 

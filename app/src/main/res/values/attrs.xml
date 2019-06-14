@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="ds">
+        <attr name="background_color" format="reference"/>
+        <attr name="font_color" format="reference"/>
+        <attr name="border_color" format="reference"/>
+        <attr name="hint_color" format="reference"/>
+    </declare-styleable>
+</resources>

@@ -8,6 +8,7 @@ import chrapps.memo.R
 import chrapps.memo.views.TaskEditView
 import android.content.Context
 import android.content.Intent
+import android.preference.PreferenceManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.inputmethod.InputMethodManager
@@ -16,6 +17,16 @@ import android.widget.*
 import chrapps.memo.components.JSONManager
 import chrapps.memo.models.Card
 import chrapps.memo.models.Task
+import android.R.attr.data
+import android.support.v4.content.ContextCompat
+import android.util.Log
+import android.util.TypedValue
+import java.lang.reflect.AccessibleObject.setAccessible
+import android.widget.TextView
+
+
+
+
 
 
 class CardActivity : AppCompatActivity() {
@@ -30,6 +41,7 @@ class CardActivity : AppCompatActivity() {
     private var jsonManager = JSONManager()
 
     private var selectedColorId = 0
+    private var selectedStyleThemeId: Int = 0
 
 
     companion object {
@@ -40,7 +52,7 @@ class CardActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_card)
+        updateTheme()
 
         tasksContainer = findViewById(R.id.tasks_container)
         titleView = findViewById(R.id.title_edit_view)
@@ -74,6 +86,30 @@ class CardActivity : AppCompatActivity() {
         appendTask()
 
         checkIfAvailableToSubmit()
+    }
+
+
+    private fun updateTheme() {
+        val themeStyleId = PreferenceManager.getDefaultSharedPreferences(this)
+            .getInt(SettingsActivity.THEME_KEY, R.style.CloudAppTheme)
+
+        setTheme(themeStyleId)
+
+        selectedStyleThemeId = themeStyleId
+
+        setContentView(R.layout.activity_card)
+
+        when (themeStyleId) {
+            R.style.CloudAppTheme -> {
+                findViewById<ImageButton>(R.id.button_back).setImageResource(R.drawable.ic_arrow_back_black)
+                findViewById<ImageButton>(R.id.button_submit).setImageResource(R.drawable.ic_check_black)
+            }
+
+            R.style.LazuriteAppTheme, R.style.UndergroundAppTheme -> {
+                findViewById<ImageButton>(R.id.button_back).setImageResource(R.drawable.ic_arrow_back_white)
+                findViewById<ImageButton>(R.id.button_submit).setImageResource(R.drawable.ic_check_white)
+            }
+        }
     }
 
     private fun loadCardInfo() {
@@ -154,21 +190,8 @@ class CardActivity : AppCompatActivity() {
     }
 
 
-    @SuppressLint("ResourceAsColor")
     fun appendTask() {
-
-        val row = LinearLayout(this)
-        row.orientation = LinearLayout.HORIZONTAL
-
-        val editView = TaskEditView(this)
-        editView.requestFocus()
-
-        // Compound row (checkbox + editView)
-        row.addView(CheckBox(this))
-        row.addView(editView)
-
-        // Add row to tasksContainer
-        tasksContainer.addView(row)
+        appendTask(Task("", false))
     }
 
     private fun appendTask(task: Task) {
@@ -179,7 +202,33 @@ class CardActivity : AppCompatActivity() {
         val editView = TaskEditView(this)
         editView.setText(task.text)
 
-        val checkBox = CheckBox(this)
+
+        // Change cursor
+        try {
+            val f = TextView::class.java.getDeclaredField("mCursorDrawableRes")
+            f.isAccessible = true
+            f.set(editView, 0)
+        } catch (ignored: Exception) { }
+
+
+        var checkBox = CheckBox(this, null, 0, R.style.CheckBoxLight)
+
+        // Change text colors
+        when (selectedStyleThemeId) {
+            R.style.CloudAppTheme -> {
+                editView.setTextColor(ContextCompat.getColor(this, R.color.font_dark_content))
+                editView.setHintTextColor(ContextCompat.getColor(this, R.color.hint_cloud))
+
+                checkBox = CheckBox(this, null, 0, R.style.CheckBoxDark)
+            }
+
+            R.style.LazuriteAppTheme, R.style.UndergroundAppTheme -> {
+                editView.setTextColor(ContextCompat.getColor(this, R.color.font_white_content))
+                editView.setHintTextColor(ContextCompat.getColor(this, R.color.hint_underground))
+                checkBox = CheckBox(this, null, 0, R.style.CheckBoxLight)
+            }
+        }
+
         checkBox.isChecked = task.isChecked
 
         // Compound row (checkbox + editView)

@@ -3,7 +3,9 @@ package chrapps.memo.activities
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.view.View
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import chrapps.memo.components.JSONManager
 import chrapps.memo.R
@@ -26,7 +28,7 @@ class ListActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_list)
+        updateTheme()
 
         // Connect all UI components
         listContainer = findViewById(R.id.card_container)
@@ -43,6 +45,27 @@ class ListActivity : AppCompatActivity() {
             for (card in storage.cardMap) {
                 val cardView = CardView(card.key, card.value,this)
                 listContainer.addView(cardView)
+            }
+        }
+    }
+
+    private fun updateTheme() {
+        val themeStyleId = PreferenceManager.getDefaultSharedPreferences(this)
+            .getInt(SettingsActivity.THEME_KEY, R.style.CloudAppTheme)
+
+        setTheme(themeStyleId)
+
+        setContentView(R.layout.activity_list)
+
+        when (themeStyleId) {
+            R.style.CloudAppTheme -> {
+                findViewById<ImageButton>(R.id.button_add).setImageResource(R.drawable.ic_add_black)
+                findViewById<ImageButton>(R.id.button_settings).setImageResource(R.drawable.ic_settings_black)
+            }
+
+            R.style.LazuriteAppTheme, R.style.UndergroundAppTheme -> {
+                findViewById<ImageButton>(R.id.button_add).setImageResource(R.drawable.ic_add_white)
+                findViewById<ImageButton>(R.id.button_settings).setImageResource(R.drawable.ic_settings_white)
             }
         }
     }
