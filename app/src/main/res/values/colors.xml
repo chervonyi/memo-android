@@ -23,18 +23,21 @@
     <color name="font_lazurite">#F0F0F0</color>
     <color name="hint_lazurite">#50FFFFFF</color>
     <color name="border_lazurite">#485982</color>
+    <color name="header_color_lazurite">#293961</color>
 
     <!-- Underground -->
     <color name="background_underground">#313131</color>
     <color name="font_underground">#F0F0F0</color>
     <color name="hint_underground">#50FFFFFF</color>
     <color name="border_underground">#3D3D3D</color>
+    <color name="header_color_underground">#242424</color>
 
     <!-- Cloud -->
     <color name="background_cloud">#F8F8F8</color>
     <color name="font_cloud">#3E3E3E</color>
     <color name="hint_cloud">#7A7A7A</color>
     <color name="border_color_cloud">#E3E3E3</color>
+    <color name="header_color_cloud">#C5C5C5</color>
 
 
 

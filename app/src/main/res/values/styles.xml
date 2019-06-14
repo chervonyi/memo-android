@@ -4,8 +4,8 @@
     <style name="CloudAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="windowNoTitle">true</item>
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorAccent</item>
+        <item name="colorPrimary">@color/header_color_cloud</item>
+        <item name="colorPrimaryDark">@color/header_color_cloud</item>
         <item name="colorAccent">@color/colorAccent</item>
 
         <!-- Theme colors -->
@@ -18,8 +18,8 @@
     <style name="LazuriteAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="windowNoTitle">true</item>
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorAccent</item>
+        <item name="colorPrimary">@color/header_color_lazurite</item>
+        <item name="colorPrimaryDark">@color/header_color_lazurite</item>
         <item name="colorAccent">@color/font_white_content</item>
 
         <!-- Theme colors -->
@@ -32,8 +32,8 @@
     <style name="UndergroundAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="windowNoTitle">true</item>
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorAccent</item>
+        <item name="colorPrimary">@color/header_color_underground</item>
+        <item name="colorPrimaryDark">@color/header_color_underground</item>
         <item name="colorAccent">@color/font_white_content</item>
 
         <!-- Theme colors -->
