@@ -47,20 +47,6 @@ class ListActivity : AppCompatActivity() {
         }
     }
 
-
-
-    private fun test() {
-
-        val card = Card("My title", ArrayList(), R.drawable.card_violet)
-        card.tasks.add(Task("My some task #1", true))
-        card.tasks.add(Task("My some task #2", false))
-        card.tasks.add(Task("My some task #3", true))
-        card.tasks.add(Task("My some task #4", false))
-
-//        var cardView = CardView(card,this)
-//        listContainer.addView(cardView)
-    }
-
     fun goToCreateNewCard(view: View) {
         val intent = Intent(this, CardActivity::class.java)
         intent.putExtra(CardActivity.EDIT_CARD_ID, -1)
@@ -71,8 +57,7 @@ class ListActivity : AppCompatActivity() {
 
     fun goToEditCard(view: View) {
         val intent = Intent(this, CardActivity::class.java)
-        // TODO - put extra like:
-        // intent.putExtra(CardActivity.EDIT_CARD_ID, view.getTag().toInt())
+        intent.putExtra(CardActivity.EDIT_CARD_ID, view.tag as Int)
         startActivity(intent)
         finish()
         overridePendingTransition(R.anim.enter_from_right, R.anim.exit_from_right)

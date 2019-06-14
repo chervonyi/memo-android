@@ -5,6 +5,7 @@ import android.content.Context
 import android.support.v4.content.ContextCompat
 import android.view.View
 import android.widget.CheckBox
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import chrapps.memo.R
@@ -17,11 +18,11 @@ class CardView(id: Int, card: Card, context: Context) : LinearLayout(context) {
     private val mContext: Context = context
 
     init {
-        render(card)
+        render(id, card)
     }
 
 
-    private fun render(card: Card) {
+    private fun render(id: Int, card: Card) {
 
         View.inflate(mContext, R.layout.card_view, this)
 
@@ -31,6 +32,9 @@ class CardView(id: Int, card: Card, context: Context) : LinearLayout(context) {
 
         // Set background view
         setBackgroundResource(card.drawable)
+
+        // Assign id for optionButton
+        findViewById<ImageButton>(R.id.button_card_option).tag = id
 
         // Margins
         val params = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)

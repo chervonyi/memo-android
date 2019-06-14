@@ -59,7 +59,7 @@ class CardActivity : AppCompatActivity() {
 
         titleView.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-                checkIfisAvailableToSubmit()
+                checkIfAvailableToSubmit()
             }
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
@@ -67,10 +67,32 @@ class CardActivity : AppCompatActivity() {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
         })
 
+        loadCardInfo()
         setOptionButtonViews()
+
+        // Add additional empty field
         appendTask()
+
+        checkIfAvailableToSubmit()
     }
 
+    private fun loadCardInfo() {
+        if (currentCardID != -1) {
+            val storage = jsonManager.readStorage(this)
+            val card = storage.cardMap[currentCardID]
+
+            if (card != null) {
+                titleView.text = card.title
+
+                selectedColorId = fromDrawableToID(card.drawable)
+                findViewById<ImageButton>(fromDrawableToID(card.drawable)).setImageResource(R.drawable.ic_check_white)
+
+                for (task in card.tasks) {
+                    appendTask(task)
+                }
+            }
+        }
+    }
 
     private fun setOptionButtonViews() {
 
@@ -96,40 +118,40 @@ class CardActivity : AppCompatActivity() {
         }
     }
 
+
     fun onClickSubmit(view: View) {
+
+        val tasks = ArrayList<Task>()
+
+        val childCount = tasksContainer.childCount
+
+        // Read all tasks from 'tasksContainer' (LinearLayout)
+        for (id in 0 until childCount) {
+            val row = tasksContainer.getChildAt(id)
+
+            if (row is LinearLayout && row.childCount == 2) {
+                val checkBox = row.getChildAt(0) as CheckBox
+                val editTextView = row.getChildAt(1) as TaskEditView
+
+                if (editTextView.text.isNotEmpty()) {
+                    tasks.add(Task(editTextView.text.toString(), checkBox.isChecked))
+                }
+            }
+        }
+
+        val card = Card(titleView.text.toString(), tasks, fromIDToDrawable(selectedColorId))
 
         if (currentCardID == -1) {
             // Creating a new
-            val tasks = ArrayList<Task>()
-
-            val childCount = tasksContainer.childCount
-
-            // Read all tasks from 'tasksContainer' (LinearLayout)
-            for (id in 0 until childCount) {
-                val row = tasksContainer.getChildAt(id)
-
-                if (row is LinearLayout && row.childCount == 2) {
-                    val checkBox = row.getChildAt(0) as CheckBox
-                    val editTextView = row.getChildAt(1) as TaskEditView
-
-                    if (editTextView.text.isNotEmpty()) {
-                        tasks.add(Task(editTextView.text.toString(), checkBox.isChecked))
-                    }
-                }
-            }
-
-            val card = Card(titleView.text.toString(), tasks, selectedColorId)
             jsonManager.appendCard(this, card)
 
         } else {
             // Editing
-            // ...
-
+            jsonManager.rewriteCard(this, currentCardID, card)
         }
 
         goBack(view)
     }
-
 
 
     @SuppressLint("ResourceAsColor")
@@ -149,21 +171,40 @@ class CardActivity : AppCompatActivity() {
         tasksContainer.addView(row)
     }
 
+    private fun appendTask(task: Task) {
+
+        val row = LinearLayout(this)
+        row.orientation = LinearLayout.HORIZONTAL
+
+        val editView = TaskEditView(this)
+        editView.setText(task.text)
+
+        val checkBox = CheckBox(this)
+        checkBox.isChecked = task.isChecked
+
+        // Compound row (checkbox + editView)
+        row.addView(checkBox)
+        row.addView(editView)
+
+        // Add row to tasksContainer
+        tasksContainer.addView(row)
+    }
+
     fun selectOptionBackgroundColor(view: View) {
         if (selectedColorId != 0) {
             // Remove 'check' image from previous selection
             findViewById<ImageButton>(selectedColorId).setImageResource(0)
         }
 
-        selectedColorId = converteDrawable(view.id)
+        selectedColorId = view.id
 
         // St 'check' image for selected imageButton
         (view as ImageButton).setImageResource(R.drawable.ic_check_white)
 
-        checkIfisAvailableToSubmit()
+        checkIfAvailableToSubmit()
     }
 
-    private fun converteDrawable(optionID: Int) : Int {
+    private fun fromIDToDrawable(optionID: Int) : Int {
         when (optionID) {
             R.id.option_yellow -> return R.drawable.card_yellow
             R.id.option_red -> return R.drawable.card_red
@@ -176,7 +217,20 @@ class CardActivity : AppCompatActivity() {
         return R.drawable.card_yellow
     }
 
-    private fun checkIfisAvailableToSubmit() {
+    private fun fromDrawableToID(colorID: Int) : Int {
+        when (colorID) {
+            R.drawable.card_yellow -> return R.id.option_yellow
+            R.drawable.card_red -> return R.id.option_red
+            R.drawable.card_green -> return R.id.option_green
+            R.drawable.card_cyan -> return R.id.option_cyan
+            R.drawable.card_blue -> return R.id.option_blue
+            R.drawable.card_violet -> return R.id.option_violet
+        }
+
+        return R.id.option_yellow
+    }
+
+    private fun checkIfAvailableToSubmit() {
         val isAvailable: Boolean = selectedColorId != 0 &&
                 titleView.text.isNotEmpty()
 
