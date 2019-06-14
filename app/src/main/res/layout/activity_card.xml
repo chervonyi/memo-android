@@ -35,6 +35,7 @@
 
 
             <ImageButton
+                android:id="@+id/button_submit"
                 android:layout_width="@dimen/icon_size"
                 android:layout_height="@dimen/icon_size"
                 android:layout_alignParentEnd="true"
@@ -42,8 +43,10 @@
                 android:layout_marginEnd="3dp"
                 android:scaleType="centerCrop"
                 android:padding="5dp"
+                android:visibility="invisible"
                 android:src="@drawable/ic_check_black"
-                android:background="@null"/>
+                android:background="@null"
+                android:onClick="onClickSubmit"/>
         </RelativeLayout>
 
         <EditText

@@ -8,10 +8,14 @@ import chrapps.memo.R
 import chrapps.memo.views.TaskEditView
 import android.content.Context
 import android.content.Intent
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.inputmethod.InputMethodManager
 import android.view.View
 import android.widget.*
 import chrapps.memo.components.JSONManager
+import chrapps.memo.models.Card
+import chrapps.memo.models.Task
 
 
 class CardActivity : AppCompatActivity() {
@@ -20,12 +24,19 @@ class CardActivity : AppCompatActivity() {
     private lateinit var tasksContainer: LinearLayout
     private lateinit var titleView: TextView
     private lateinit var dummyElement: LinearLayout
-
+    private lateinit var submitButton: ImageButton
 
     // Json
     private var jsonManager = JSONManager()
-    
+
     private var selectedColorId = 0
+
+
+    companion object {
+        const val EDIT_CARD_ID = "card_id"
+    }
+
+    private var currentCardID: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,14 +45,27 @@ class CardActivity : AppCompatActivity() {
         tasksContainer = findViewById(R.id.tasks_container)
         titleView = findViewById(R.id.title_edit_view)
         dummyElement = findViewById(R.id.dummy_id)
+        submitButton = findViewById(R.id.button_submit)
 
+        @Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+        currentCardID = intent.extras.getInt(EDIT_CARD_ID)
 
-        titleView.setOnEditorActionListener { textView, actionId, keyEvent ->
+        titleView.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 removeFocus()
             }
             false
         }
+
+        titleView.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+                checkIfisAvailableToSubmit()
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
+        })
 
         setOptionButtonViews()
         appendTask()
@@ -72,6 +96,42 @@ class CardActivity : AppCompatActivity() {
         }
     }
 
+    fun onClickSubmit(view: View) {
+
+        if (currentCardID == -1) {
+            // Creating a new
+            val tasks = ArrayList<Task>()
+
+            val childCount = tasksContainer.childCount
+
+            // Read all tasks from 'tasksContainer' (LinearLayout)
+            for (id in 0 until childCount) {
+                val row = tasksContainer.getChildAt(id)
+
+                if (row is LinearLayout && row.childCount == 2) {
+                    val checkBox = row.getChildAt(0) as CheckBox
+                    val editTextView = row.getChildAt(1) as TaskEditView
+
+                    if (editTextView.text.isNotEmpty()) {
+                        tasks.add(Task(editTextView.text.toString(), checkBox.isChecked))
+                    }
+                }
+            }
+
+            val card = Card(titleView.text.toString(), tasks, selectedColorId)
+            jsonManager.appendCard(this, card)
+
+        } else {
+            // Editing
+            // ...
+
+        }
+
+        goBack(view)
+    }
+
+
+
     @SuppressLint("ResourceAsColor")
     fun appendTask() {
 
@@ -95,10 +155,32 @@ class CardActivity : AppCompatActivity() {
             findViewById<ImageButton>(selectedColorId).setImageResource(0)
         }
 
-        selectedColorId = view.id
+        selectedColorId = converteDrawable(view.id)
 
         // St 'check' image for selected imageButton
         (view as ImageButton).setImageResource(R.drawable.ic_check_white)
+
+        checkIfisAvailableToSubmit()
+    }
+
+    private fun converteDrawable(optionID: Int) : Int {
+        when (optionID) {
+            R.id.option_yellow -> return R.drawable.card_yellow
+            R.id.option_red -> return R.drawable.card_red
+            R.id.option_green -> return R.drawable.card_green
+            R.id.option_cyan -> return R.drawable.card_cyan
+            R.id.option_blue -> return R.drawable.card_blue
+            R.id.option_violet -> return R.drawable.card_violet
+        }
+
+        return R.drawable.card_yellow
+    }
+
+    private fun checkIfisAvailableToSubmit() {
+        val isAvailable: Boolean = selectedColorId != 0 &&
+                titleView.text.isNotEmpty()
+
+        submitButton.visibility = if (isAvailable) View.VISIBLE else View.INVISIBLE
     }
 
     fun removeFocus() {

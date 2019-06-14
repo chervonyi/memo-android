@@ -1,6 +1,8 @@
 package chrapps.memo.components
 
 import android.content.Context
+import android.content.SharedPreferences
+import android.preference.PreferenceManager
 import android.util.Log
 import chrapps.memo.R
 import chrapps.memo.models.Card
@@ -13,6 +15,8 @@ class JSONManager {
 
     @Suppress("PrivatePropertyName")
     private val FILENAME = "cards.json"
+
+    private val UNIQUE_ID_KEY = "CARD_ID"
 
     private val gson = Gson()
 
@@ -59,9 +63,17 @@ class JSONManager {
 
     }
 
-    fun isFilePresent(context: Context): Boolean {
-        val path = context.filesDir.absolutePath + "/" + FILENAME
-        val file = File(path)
-        return file.exists()
+    fun appendCard(context: Context, newCard: Card) {
+        val currentStorage = readStorage(context)
+
+        currentStorage.cardMap.put(getNextIdentificationNumber(context), newCard)
+
+        saveStorage(context, currentStorage)
+    }
+
+    private fun getNextIdentificationNumber(context: Context) : Int {
+        val num = PreferenceManager.getDefaultSharedPreferences(context).getInt(UNIQUE_ID_KEY, 1)
+        PreferenceManager.getDefaultSharedPreferences(context).edit().putInt(UNIQUE_ID_KEY, num + 1).apply()
+        return num
     }
 }

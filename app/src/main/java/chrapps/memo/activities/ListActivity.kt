@@ -63,6 +63,7 @@ class ListActivity : AppCompatActivity() {
 
     fun goToCreateNewCard(view: View) {
         val intent = Intent(this, CardActivity::class.java)
+        intent.putExtra(CardActivity.EDIT_CARD_ID, -1)
         startActivity(intent)
         finish()
         overridePendingTransition(R.anim.enter_from_right, R.anim.exit_from_right)
@@ -70,6 +71,8 @@ class ListActivity : AppCompatActivity() {
 
     fun goToEditCard(view: View) {
         val intent = Intent(this, CardActivity::class.java)
+        // TODO - put extra like:
+        // intent.putExtra(CardActivity.EDIT_CARD_ID, view.getTag().toInt())
         startActivity(intent)
         finish()
         overridePendingTransition(R.anim.enter_from_right, R.anim.exit_from_right)
