@@ -19,7 +19,6 @@ class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         updateTheme()
-//        setContentView(R.layout.activity_settings)
     }
 
     private fun updateTheme() {
@@ -59,7 +58,6 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun setNewTheme(themeStyleId: Int) {
-//        setTheme(themeStyleId)
         PreferenceManager.getDefaultSharedPreferences(this).edit().putInt(THEME_KEY, themeStyleId).apply()
 
         finish()

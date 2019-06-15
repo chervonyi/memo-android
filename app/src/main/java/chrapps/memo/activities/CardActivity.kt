@@ -97,8 +97,10 @@ class CardActivity : AppCompatActivity() {
 
         selectedStyleThemeId = themeStyleId
 
+        // Load content
         setContentView(R.layout.activity_card)
 
+        // Update buttons with appropriate icons (white ro black)
         when (themeStyleId) {
             R.style.CloudAppTheme -> {
                 findViewById<ImageButton>(R.id.button_back).setImageResource(R.drawable.ic_arrow_back_black)

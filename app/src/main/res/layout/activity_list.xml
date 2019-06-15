@@ -50,6 +50,7 @@
             tools:ignore="RtlSymmetry">
 
             <TextView
+                android:id="@+id/day_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-condensed-medium"
@@ -58,6 +59,7 @@
                 android:textSize="20sp" />
 
             <TextView
+                android:id="@+id/day_of_week_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-condensed-medium"
