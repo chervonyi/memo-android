@@ -121,8 +121,9 @@ class CardActivity : AppCompatActivity() {
             if (card != null) {
                 titleView.text = card.title
 
-                selectedColorId = fromDrawableToID(card.drawable)
-                findViewById<ImageButton>(fromDrawableToID(card.drawable)).setImageResource(R.drawable.ic_check_white)
+                val drawableId = resources.getIdentifier(card.drawable, "drawable", "chrapps.memo")
+                selectedColorId = fromDrawableToID(drawableId)
+                findViewById<ImageButton>(fromDrawableToID(drawableId)).setImageResource(R.drawable.ic_check_white)
 
                 for (task in card.tasks) {
                     appendTask(task)
@@ -176,7 +177,8 @@ class CardActivity : AppCompatActivity() {
             }
         }
 
-        val card = Card(titleView.text.toString(), tasks, fromIDToDrawable(selectedColorId))
+        val card = Card(titleView.text.toString(), tasks,
+            resources.getResourceEntryName(fromIDToDrawable(selectedColorId)))
 
         if (currentCardID == -1) {
             // Creating a new

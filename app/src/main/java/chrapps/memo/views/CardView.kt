@@ -31,7 +31,8 @@ class CardView(id: Int, card: Card, context: Context) : LinearLayout(context) {
         title.text = card.title
 
         // Set background view
-        setBackgroundResource(card.drawable)
+        val drawableID =  resources.getIdentifier(card.drawable, "drawable", "chrapps.memo")
+        setBackgroundResource(drawableID)
 
         // Assign id for optionButton
         findViewById<ImageButton>(R.id.button_card_option).tag = id

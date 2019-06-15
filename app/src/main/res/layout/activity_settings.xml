@@ -33,7 +33,8 @@
             android:layout_height="wrap_content"
             android:paddingStart="20dp"
             android:textColor="?attr/font_color"
-            android:textSize="22sp"
+            android:textSize="24sp"
+            android:fontFamily="@font/anton"
             android:layout_marginTop="10dp"
             android:text="@string/theme"
             tools:ignore="RtlSymmetry" />

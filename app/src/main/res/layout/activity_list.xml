@@ -44,8 +44,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="20dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:paddingTop="0dp"
+            android:paddingBottom="5dp"
             android:orientation="vertical"
             tools:ignore="RtlSymmetry">
 
@@ -53,16 +53,17 @@
                 android:id="@+id/day_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-condensed-medium"
+                android:fontFamily="@font/anton"
                 android:text="07 June"
-                android:textColor="?attr/font_color"
+                android:textColor="?attr/hint_color"
                 android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/day_of_week_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-condensed-medium"
+                android:fontFamily="@font/anton"
+                android:layout_marginTop="-10dp"
                 android:text="Saturday"
                 android:textColor="?attr/font_color"
                 android:textSize="30sp" />
