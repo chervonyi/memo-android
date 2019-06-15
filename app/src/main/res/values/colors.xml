@@ -12,7 +12,7 @@
 
     <!-- Constants -->
     <color name="transparent">#00FFFFFF</color>
-    <color name="font_dark_content">#0F0F0F</color>
+    <color name="font_dark_content">#000000</color>
     <color name="font_white_content">#FFF</color>
 
 

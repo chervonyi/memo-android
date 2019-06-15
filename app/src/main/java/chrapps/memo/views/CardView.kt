@@ -26,8 +26,19 @@ class CardView(id: Int, card: Card, context: Context) : LinearLayout(context) {
 
         View.inflate(mContext, R.layout.card_view, this)
 
+        // Load content color
+        val textColor = card.getContentColor()
+
+        if (textColor == R.color.font_dark_content) {
+            findViewById<ImageButton>(R.id.button_card_option).setImageResource(R.drawable.ic_more_black)
+        } else {
+            findViewById<ImageButton>(R.id.button_card_option).setImageResource(R.drawable.ic_more_white)
+        }
+
+
         // Set title
         val title: TextView = findViewById(R.id.title)
+        title.setTextColor(ContextCompat.getColor(mContext, textColor))
         title.text = card.title
 
         // Set background view
@@ -45,6 +56,7 @@ class CardView(id: Int, card: Card, context: Context) : LinearLayout(context) {
         // Append all tasks of this card
         val taskContainer: LinearLayout = findViewById(R.id.tasks_container)
 
+
         for (task in card.tasks) {
             val row = LinearLayout(mContext)
             row.orientation = HORIZONTAL
@@ -52,11 +64,14 @@ class CardView(id: Int, card: Card, context: Context) : LinearLayout(context) {
             // Load task text
             val taskView = TextView(mContext)
             taskView.text = task.text
+            taskView.setTextColor(ContextCompat.getColor(mContext, textColor))
             taskView.textSize = 8 * resources.displayMetrics.scaledDensity
-            taskView.setTextColor(ContextCompat.getColor(mContext, R.color.font_dark_content))
 
             // Load checkbox
-            val checkBox = CheckBox(mContext, null, 0, R.style.CheckBoxDark)
+            val checkBox =
+                if (textColor == R.color.font_dark_content) CheckBox(mContext, null, 0, R.style.CheckBoxDark)
+                else CheckBox(mContext, null, 0, R.style.CheckBoxLight)
+
             checkBox.isChecked = task.isChecked
 
             // Compound task text and checkbox in one row and add it to LinearLayout(taskContainer)
