@@ -23,10 +23,8 @@ import android.util.Log
 import android.util.TypedValue
 import java.lang.reflect.AccessibleObject.setAccessible
 import android.widget.TextView
-
-
-
-
+import android.content.DialogInterface
+import android.support.v7.app.AlertDialog
 
 
 class CardActivity : AppCompatActivity() {
@@ -36,6 +34,7 @@ class CardActivity : AppCompatActivity() {
     private lateinit var titleView: TextView
     private lateinit var dummyElement: LinearLayout
     private lateinit var submitButton: ImageButton
+    private lateinit var deleteButton: ImageButton
 
     // Json
     private var jsonManager = JSONManager()
@@ -58,9 +57,12 @@ class CardActivity : AppCompatActivity() {
         titleView = findViewById(R.id.title_edit_view)
         dummyElement = findViewById(R.id.dummy_id)
         submitButton = findViewById(R.id.button_submit)
+        deleteButton = findViewById(R.id.button_delete)
 
         @Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
         currentCardID = intent.extras.getInt(EDIT_CARD_ID)
+
+        deleteButton.visibility = if(currentCardID != -1) View.VISIBLE else View.INVISIBLE
 
         titleView.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -105,11 +107,13 @@ class CardActivity : AppCompatActivity() {
             R.style.CloudAppTheme -> {
                 findViewById<ImageButton>(R.id.button_back).setImageResource(R.drawable.ic_arrow_back_black)
                 findViewById<ImageButton>(R.id.button_submit).setImageResource(R.drawable.ic_check_black)
+                findViewById<ImageButton>(R.id.button_delete).setImageResource(R.drawable.ic_delete_black)
             }
 
             R.style.LazuriteAppTheme, R.style.UndergroundAppTheme -> {
                 findViewById<ImageButton>(R.id.button_back).setImageResource(R.drawable.ic_arrow_back_white)
                 findViewById<ImageButton>(R.id.button_submit).setImageResource(R.drawable.ic_check_white)
+                findViewById<ImageButton>(R.id.button_delete).setImageResource(R.drawable.ic_delete_white)
             }
         }
     }
@@ -191,6 +195,27 @@ class CardActivity : AppCompatActivity() {
         goBack(view)
     }
 
+    fun onClickDelete(view: View) {
+
+        val dialogClickListener = DialogInterface.OnClickListener { dialog, which ->
+            when (which) {
+                DialogInterface.BUTTON_POSITIVE -> {
+                    if (currentCardID != -1) {
+                        jsonManager.deleteCard(this, currentCardID)
+                    }
+
+                    goBack(view)
+                }
+            }
+        }
+
+        val builder = AlertDialog.Builder(this, R.style.MyDialogTheme)
+        builder.setMessage("Are you sure to delete this card?")
+            .setNegativeButton("No", dialogClickListener)
+            .setPositiveButton("Yes", dialogClickListener)
+            .show()
+    }
+
 
     fun appendTask() {
         appendTask(Task("", false))
@@ -254,6 +279,8 @@ class CardActivity : AppCompatActivity() {
 
         checkIfAvailableToSubmit()
     }
+
+
 
     private fun fromIDToDrawable(optionID: Int) : Int {
         when (optionID) {

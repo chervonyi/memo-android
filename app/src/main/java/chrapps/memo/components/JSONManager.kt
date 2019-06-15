@@ -69,9 +69,13 @@ class JSONManager {
 
     fun rewriteCard(context: Context, id: Int, card: Card) {
         val currentStorage = readStorage(context)
-
         currentStorage.cardMap[id] = card
+        saveStorage(context, currentStorage)
+    }
 
+    fun deleteCard(context: Context, id: Int) {
+        val currentStorage = readStorage(context)
+        currentStorage.cardMap.remove(id)
         saveStorage(context, currentStorage)
     }
 

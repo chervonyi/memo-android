@@ -53,4 +53,9 @@
         <item name="android:buttonTint">#FFF</item>
     </style>
 
+
+    <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorPrimary">@color/colorPrimaryDark</item>
+    </style>
+
 </resources>
