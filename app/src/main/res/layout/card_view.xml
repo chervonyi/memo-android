@@ -15,6 +15,7 @@
             android:layout_height="@dimen/icon_size"
             android:layout_toStartOf="@id/button_card_option"
             android:src="@drawable/ic_add_black"
+            android:visibility="gone"
             android:background="@null"/>
 
         <ImageButton

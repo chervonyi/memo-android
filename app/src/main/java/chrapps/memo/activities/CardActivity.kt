@@ -1,6 +1,5 @@
 package chrapps.memo.activities
 
-import android.annotation.SuppressLint
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
@@ -17,11 +16,7 @@ import android.widget.*
 import chrapps.memo.components.JSONManager
 import chrapps.memo.models.Card
 import chrapps.memo.models.Task
-import android.R.attr.data
 import android.support.v4.content.ContextCompat
-import android.util.Log
-import android.util.TypedValue
-import java.lang.reflect.AccessibleObject.setAccessible
 import android.widget.TextView
 import android.content.DialogInterface
 import android.support.v7.app.AlertDialog
@@ -210,9 +205,9 @@ class CardActivity : AppCompatActivity() {
         }
 
         val builder = AlertDialog.Builder(this, R.style.MyDialogTheme)
-        builder.setMessage("Are you sure to delete this card?")
-            .setNegativeButton("No", dialogClickListener)
-            .setPositiveButton("Yes", dialogClickListener)
+        builder.setMessage(getString(R.string.question_delete_card))
+            .setNegativeButton(getString(R.string.answer_no), dialogClickListener)
+            .setPositiveButton(getString(R.string.answer_yes), dialogClickListener)
             .show()
     }
 

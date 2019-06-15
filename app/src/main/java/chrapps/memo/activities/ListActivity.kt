@@ -2,23 +2,18 @@ package chrapps.memo.activities
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.support.annotation.RequiresApi
 import android.view.View
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import chrapps.memo.components.JSONManager
 import chrapps.memo.R
-import chrapps.memo.models.Card
 import chrapps.memo.models.Storage
-import chrapps.memo.models.Task
 import chrapps.memo.views.CardView
 import java.text.DateFormatSymbols
-import java.time.DayOfWeek
 import java.util.*
 
 
@@ -134,6 +129,4 @@ class ListActivity : AppCompatActivity() {
             else -> ""
         }
     }
-
-
 }
