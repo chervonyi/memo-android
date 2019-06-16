@@ -45,9 +45,19 @@ class ListActivity : AppCompatActivity() {
         } else {
             emptyBoxLabel.visibility = View.GONE
 
-            for (card in storage.cardMap) {
-                val cardView = CardView(card.key, card.value,this)
-                listContainer.addView(cardView)
+            // Get all keys
+            val keys = ArrayList<Int>(storage.cardMap.keys)
+
+            // Sort keys [.. 8, 6, 5, 3, 1]
+            keys.sortDescending()
+
+            for (key in keys) {
+                val card = storage.cardMap[key]
+                if (card != null) {
+                    val cardView = CardView(key, card,this)
+                    listContainer.addView(cardView)
+                }
+
             }
         }
 
