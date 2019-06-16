@@ -3,6 +3,7 @@ package chrapps.memo.views
 import android.annotation.SuppressLint
 import android.content.Context
 import android.support.v4.content.ContextCompat
+import android.util.Log
 import android.view.View
 import android.widget.CheckBox
 import android.widget.ImageButton
@@ -10,11 +11,16 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import chrapps.memo.R
 import chrapps.memo.models.Card
+import android.widget.CompoundButton
+import chrapps.memo.components.JSONManager
+import chrapps.memo.models.Task
 
 
 @SuppressLint("ViewConstructor")
 class CardView(id: Int, card: Card, context: Context) : LinearLayout(context) {
 
+
+    private val jsonManager = JSONManager()
     private val mContext: Context = context
 
     init {
@@ -72,6 +78,30 @@ class CardView(id: Int, card: Card, context: Context) : LinearLayout(context) {
                 if (textColor == R.color.font_dark_content) CheckBox(mContext, null, 0, R.style.CheckBoxDark)
                 else CheckBox(mContext, null, 0, R.style.CheckBoxLight)
 
+            checkBox.setOnClickListener { view ->
+
+                Log.d("CHR_TEST", "setOnCheckedChangeListener")
+
+                val tasks = ArrayList<Task>()
+
+                val childCount = taskContainer.childCount
+
+                // Read all tasks from 'tasksContainer' (LinearLayout)
+                for (i in 0 until childCount) {
+                    val innerRow = taskContainer.getChildAt(i)
+
+                    if (innerRow is LinearLayout && innerRow.childCount == 2) {
+                        val innerCheckBox = innerRow.getChildAt(0) as CheckBox
+                        val editTextView = innerRow.getChildAt(1) as TextView
+
+                        if (editTextView.text.isNotEmpty()) {
+                            tasks.add(Task(editTextView.text.toString(), innerCheckBox.isChecked))
+                        }
+                    }
+                }
+                jsonManager.updateTasks(mContext, id,  tasks)
+
+            }
             checkBox.isChecked = task.isChecked
 
             // Compound task text and checkbox in one row and add it to LinearLayout(taskContainer)
@@ -85,7 +115,5 @@ class CardView(id: Int, card: Card, context: Context) : LinearLayout(context) {
 
         orientation = VERTICAL
     }
-
-
 
 }

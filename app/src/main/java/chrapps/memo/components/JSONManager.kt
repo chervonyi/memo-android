@@ -79,6 +79,14 @@ class JSONManager {
         saveStorage(context, currentStorage)
     }
 
+    fun updateTasks(context: Context, id: Int, newTasks: ArrayList<Task>) {
+        val currentStorage = readStorage(context)
+        if (currentStorage.cardMap.containsKey(id)) {
+            currentStorage.cardMap[id]!!.tasks = newTasks
+        }
+        saveStorage(context, currentStorage)
+    }
+
     private fun getNextIdentificationNumber(context: Context) : Int {
         val num = PreferenceManager.getDefaultSharedPreferences(context).getInt(UNIQUE_ID_KEY, 1)
         PreferenceManager.getDefaultSharedPreferences(context).edit().putInt(UNIQUE_ID_KEY, num + 1).apply()
