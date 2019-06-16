@@ -353,4 +353,9 @@ class CardActivity : AppCompatActivity() {
         finish()
         overridePendingTransition(R.anim.enter_from_left, R.anim.exit_from_left)
     }
+
+    override fun onBackPressed() {
+        // Put app on the background
+        moveTaskToBack(true)
+    }
 }

@@ -11,13 +11,18 @@
         android:supportsRtl="true"
         android:theme="@style/CloudAppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activities.SettingsActivity">
 
-        </activity>
-        <activity android:name=".activities.CardActivity">
+        <activity
+            android:name=".activities.SettingsActivity"
+            android:screenOrientation="portrait"/>
 
-        </activity>
-        <activity android:name=".activities.ListActivity">
+        <activity
+            android:name=".activities.CardActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".activities.ListActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -62,4 +62,8 @@ class SettingsActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    override fun onBackPressed() {
+        // Put app on the background
+        moveTaskToBack(true)
+    }
 }

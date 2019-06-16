@@ -139,4 +139,9 @@ class ListActivity : AppCompatActivity() {
             else -> ""
         }
     }
+
+    override fun onBackPressed() {
+        // Put app on the background
+        moveTaskToBack(true)
+    }
 }
