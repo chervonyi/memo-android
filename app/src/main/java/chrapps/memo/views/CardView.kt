@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.support.v4.content.ContextCompat
 import android.util.Log
+import android.view.Gravity
 import android.view.View
 import android.widget.CheckBox
 import android.widget.ImageButton
@@ -19,14 +20,12 @@ import chrapps.memo.models.Task
 @SuppressLint("ViewConstructor")
 class CardView(id: Int, card: Card, context: Context) : LinearLayout(context) {
 
-
     private val jsonManager = JSONManager()
     private val mContext: Context = context
 
     init {
         render(id, card)
     }
-
 
     private fun render(id: Int, card: Card) {
 
@@ -103,6 +102,14 @@ class CardView(id: Int, card: Card, context: Context) : LinearLayout(context) {
 
             }
             checkBox.isChecked = task.isChecked
+
+
+            val params = LayoutParams(
+                LayoutParams.WRAP_CONTENT,
+                LayoutParams.WRAP_CONTENT)
+            val rightMarginForCheckBox = (10 * resources.displayMetrics.density).toInt()
+            params.setMargins(0, 0, rightMarginForCheckBox, 0)
+            checkBox.layoutParams = params
 
             // Compound task text and checkbox in one row and add it to LinearLayout(taskContainer)
             row.addView(checkBox)

@@ -20,6 +20,8 @@ import android.support.v4.content.ContextCompat
 import android.widget.TextView
 import android.content.DialogInterface
 import android.support.v7.app.AlertDialog
+import android.view.Gravity
+import android.view.ViewGroup
 
 
 class CardActivity : AppCompatActivity() {
@@ -254,6 +256,11 @@ class CardActivity : AppCompatActivity() {
         }
 
         checkBox.isChecked = task.isChecked
+        val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT)
+        val rightMarginForCheckBox = (10 * resources.displayMetrics.density).toInt()
+        params.setMargins(0, 0, rightMarginForCheckBox, 0)
+        checkBox.layoutParams = params
 
         // Compound row (checkbox + editView)
         row.addView(checkBox)

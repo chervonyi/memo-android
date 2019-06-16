@@ -11,4 +11,5 @@
     <string name="question_delete_card">Are you sure to delete this card?</string>
     <string name="answer_no">No</string>
     <string name="answer_yes">Yes</string>
+    <string name="task_hint">Write a new task..</string>
 </resources>
