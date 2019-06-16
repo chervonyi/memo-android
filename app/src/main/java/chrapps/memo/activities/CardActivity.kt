@@ -305,6 +305,26 @@ class CardActivity : AppCompatActivity() {
         return R.id.option_yellow
     }
 
+    fun hasEmptyFields(): Boolean {
+
+        val childCount = tasksContainer.childCount
+
+        // Read all tasks from 'tasksContainer' (LinearLayout)
+        for (id in 0 until childCount) {
+            val row = tasksContainer.getChildAt(id)
+
+            if (row is LinearLayout && row.childCount == 2) {
+                val editTextView = row.getChildAt(1) as TaskEditView
+
+                if (editTextView.text.isEmpty()) {
+                    return true
+                }
+            }
+        }
+
+        return false
+    }
+
     private fun checkIfAvailableToSubmit() {
         val isAvailable: Boolean = selectedColorId != 0 &&
                 titleView.text.isNotEmpty()

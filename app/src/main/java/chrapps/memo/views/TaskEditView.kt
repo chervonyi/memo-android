@@ -27,8 +27,8 @@ class TaskEditView(context: Context?) : EditText(context) {
         setOnEditorActionListener { textView, actionId, keyEvent ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
 
-                if (length() > 0) {
-                    (mContext as CardActivity).appendTask()
+                if (length() > 0 && !(mContext as CardActivity).hasEmptyFields()) {
+                    mContext.appendTask()
                 } else {
                     (mContext as CardActivity).removeFocus()
                 }
