@@ -39,8 +39,8 @@ class CardActivity : AppCompatActivity() {
     private var selectedColorId = 0
     private var selectedStyleThemeId: Int = 0
 
-
     companion object {
+        // Flag for extra of intent
         const val EDIT_CARD_ID = "card_id"
     }
 
@@ -84,10 +84,16 @@ class CardActivity : AppCompatActivity() {
         // Add additional empty field
         appendTask()
 
+        // Check and show or hide 'Submit' button
         checkIfAvailableToSubmit()
     }
 
 
+    /**
+     * Load appropriate theme according to themeStyleId which saved into via SharedPreferences.
+     * Also, according to saved theme, set appropriate image (white or black)
+     * for operating buttons (back, submit, delete)
+     */
     private fun updateTheme() {
         val themeStyleId = PreferenceManager.getDefaultSharedPreferences(this)
             .getInt(SettingsActivity.THEME_KEY, R.style.CloudAppTheme)
@@ -115,6 +121,9 @@ class CardActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Reads storage from .json file and set view according to 'currentCardID' from loaded storage.
+     */
     private fun loadCardInfo() {
         if (currentCardID != -1) {
             val storage = jsonManager.readStorage(this)
@@ -134,6 +143,9 @@ class CardActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Make square of option buttons (in bottom) using height size which has been set as MATCH_PARENT
+     */
     private fun setOptionButtonViews() {
 
         // Some magic to get actual size of height with value of MATCH_PARENT
@@ -159,6 +171,13 @@ class CardActivity : AppCompatActivity() {
     }
 
 
+    /**
+     * Listener for 'Submit' button.
+     * Method reads all information (title, tasks and selected background color)
+     * and calls appropriate method of JSONManager:
+     *      appendCard(..)  - if activity opened for creating a new card (currentCardID equals -1)
+     *      rewriteCard(..) - if activity opened for editing some exisitng card (currentCardID keeps necessary card id)
+     */
     fun onClickSubmit(view: View) {
 
         val tasks = ArrayList<Task>()
@@ -179,6 +198,7 @@ class CardActivity : AppCompatActivity() {
             }
         }
 
+        // Compound all information in one variable using Card class.
         val card = Card(titleView.text.toString(), tasks,
             resources.getResourceEntryName(fromIDToDrawable(selectedColorId)))
 
@@ -187,13 +207,18 @@ class CardActivity : AppCompatActivity() {
             jsonManager.appendCard(this, card)
 
         } else {
-            // Editing
+            // Editing existing card
             jsonManager.rewriteCard(this, currentCardID, card)
         }
 
+        // Go to ListActivity
         goBack(view)
     }
 
+    /**
+     * Listener for 'Delete' button.
+     * This method shows some MessageDialog to confirm removing of current card.
+     */
     fun onClickDelete(view: View) {
 
         val dialogClickListener = DialogInterface.OnClickListener { dialog, which ->
@@ -215,11 +240,16 @@ class CardActivity : AppCompatActivity() {
             .show()
     }
 
-
+    /**
+     * Add one task field to end of the task-listю
+     */
     fun appendTask() {
         appendTask(Task("", false))
     }
 
+    /**
+     * Add one task field and set data according to given Task instance
+     */
     private fun appendTask(task: Task) {
 
         val row = LinearLayout(this)
@@ -270,6 +300,11 @@ class CardActivity : AppCompatActivity() {
         tasksContainer.addView(row)
     }
 
+    /**
+     * Listener for all option buttons to choice background color.
+     * Saves color id of selected button.
+     * Remove 'check' image from previous button and then set 'check' image for clicked button.
+     */
     fun selectOptionBackgroundColor(view: View) {
         if (selectedColorId != 0) {
             // Remove 'check' image from previous selection
@@ -291,38 +326,44 @@ class CardActivity : AppCompatActivity() {
             R.drawable.option_background_violet -> (view as ImageView).setImageResource(R.drawable.ic_check_white)
         }
 
-
         checkIfAvailableToSubmit()
     }
 
-
-
+    /**
+     * Convert button id (R.id) to appropriate color id (R.drawable)
+     */
     private fun fromIDToDrawable(optionID: Int) : Int {
         when (optionID) {
-            R.id.option_yellow -> return R.drawable.card_yellow
-            R.id.option_red -> return R.drawable.card_red
-            R.id.option_green -> return R.drawable.card_green
-            R.id.option_cyan -> return R.drawable.card_cyan
-            R.id.option_blue -> return R.drawable.card_blue
-            R.id.option_violet -> return R.drawable.card_violet
+            R.id.option_yellow  -> return R.drawable.card_yellow
+            R.id.option_red     -> return R.drawable.card_red
+            R.id.option_green   -> return R.drawable.card_green
+            R.id.option_cyan    -> return R.drawable.card_cyan
+            R.id.option_blue    -> return R.drawable.card_blue
+            R.id.option_violet  -> return R.drawable.card_violet
         }
 
         return R.drawable.card_yellow
     }
 
+    /**
+     * Convert color id (R.drawable) to appropriate button id (R.id)
+     */
     private fun fromDrawableToID(colorID: Int) : Int {
         when (colorID) {
-            R.drawable.card_yellow -> return R.id.option_yellow
-            R.drawable.card_red -> return R.id.option_red
-            R.drawable.card_green -> return R.id.option_green
-            R.drawable.card_cyan -> return R.id.option_cyan
-            R.drawable.card_blue -> return R.id.option_blue
-            R.drawable.card_violet -> return R.id.option_violet
+            R.drawable.card_yellow  -> return R.id.option_yellow
+            R.drawable.card_red     -> return R.id.option_red
+            R.drawable.card_green   -> return R.id.option_green
+            R.drawable.card_cyan    -> return R.id.option_cyan
+            R.drawable.card_blue    -> return R.id.option_blue
+            R.drawable.card_violet  -> return R.id.option_violet
         }
 
         return R.id.option_yellow
     }
 
+    /**
+     * Check if task-list contains at least one empty task field
+     */
     fun hasEmptyFields(): Boolean {
 
         val childCount = tasksContainer.childCount
@@ -343,6 +384,12 @@ class CardActivity : AppCompatActivity() {
         return false
     }
 
+    /**
+     * Checks all required state to show or hide 'Submit' button.
+     * 'Submit' button will be shown only if:
+     *      1. user selected some background color (selectedColorId != 0) AND
+     *      2. title field is not empty (titleView.text.length > 0)
+     */
     private fun checkIfAvailableToSubmit() {
         val isAvailable: Boolean = selectedColorId != 0 &&
                 titleView.text.isNotEmpty()
@@ -350,6 +397,9 @@ class CardActivity : AppCompatActivity() {
         submitButton.visibility = if (isAvailable) View.VISIBLE else View.INVISIBLE
     }
 
+    /**
+     * Clear focus and hide keyboard.
+     */
     fun removeFocus() {
         dummyElement.requestFocus()
 
@@ -358,6 +408,9 @@ class CardActivity : AppCompatActivity() {
         imm.hideSoftInputFromWindow(titleView.windowToken, 0)
     }
 
+    /**
+     * Go to MainActivity with slide animation.
+     */
     fun goBack(view: View) {
         val intent = Intent(this, ListActivity::class.java)
         startActivity(intent)

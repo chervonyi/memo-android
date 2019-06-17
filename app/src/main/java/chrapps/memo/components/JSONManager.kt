@@ -1,10 +1,7 @@
 package chrapps.memo.components
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.preference.PreferenceManager
-import android.util.Log
-import chrapps.memo.R
 import chrapps.memo.models.Card
 import chrapps.memo.models.Storage
 import chrapps.memo.models.Task
@@ -20,7 +17,10 @@ class JSONManager {
 
     private val gson = Gson()
 
-    fun saveStorage(context: Context, storage: Storage): Boolean {
+    /**
+     * Save given storage into .json file
+     */
+    private fun saveStorage(context: Context, storage: Storage): Boolean {
 
         val jsonString = gson.toJson(storage)
 
@@ -39,6 +39,9 @@ class JSONManager {
 
     }
 
+    /**
+     * Read saved instance of Storage class from .json file
+     */
     fun readStorage(context: Context): Storage {
         try {
             val fis = context.openFileInput(FILENAME)
@@ -63,22 +66,38 @@ class JSONManager {
 
     }
 
+    /**
+     * Main method to work work JSONManager.
+     * Creates a new card in Storage and then save it into .json file.
+     */
     fun appendCard(context: Context, newCard: Card) {
         rewriteCard(context, getNextIdentificationNumber(context), newCard)
     }
 
+    /**
+     * Main method to work work JSONManager.
+     * Update existing card with new data and then save it into .json file.
+     */
     fun rewriteCard(context: Context, id: Int, card: Card) {
         val currentStorage = readStorage(context)
         currentStorage.cardMap[id] = card
         saveStorage(context, currentStorage)
     }
 
+    /**
+     * Main method to work work JSONManager.
+     * Deletes excising card from Storage and then save it into .json file.
+     */
     fun deleteCard(context: Context, id: Int) {
         val currentStorage = readStorage(context)
         currentStorage.cardMap.remove(id)
         saveStorage(context, currentStorage)
     }
 
+    /**
+     * Main method to work work JSONManager.
+     * Update task-list in required card in Storage and then save it into .json file.
+     */
     fun updateTasks(context: Context, id: Int, newTasks: ArrayList<Task>) {
         val currentStorage = readStorage(context)
         if (currentStorage.cardMap.containsKey(id)) {
@@ -87,6 +106,13 @@ class JSONManager {
         saveStorage(context, currentStorage)
     }
 
+    /**
+     * Generates and returns unique identifier for a new card.
+     *      1. Read the last 'id' from SharedPreferences.
+     *      2. Increment this id.
+     *      3. Rewrite "last" unique identifier in SharedPreferences.
+     *      4. Return id.
+     */
     private fun getNextIdentificationNumber(context: Context) : Int {
         val num = PreferenceManager.getDefaultSharedPreferences(context).getInt(UNIQUE_ID_KEY, 1)
         PreferenceManager.getDefaultSharedPreferences(context).edit().putInt(UNIQUE_ID_KEY, num + 1).apply()

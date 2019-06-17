@@ -5,7 +5,6 @@ import android.content.Context
 import android.support.v4.content.ContextCompat
 import android.util.Log
 import android.util.TypedValue
-import android.view.Gravity
 import android.view.View
 import android.widget.CheckBox
 import android.widget.ImageButton
@@ -13,7 +12,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import chrapps.memo.R
 import chrapps.memo.models.Card
-import android.widget.CompoundButton
 import chrapps.memo.components.JSONManager
 import chrapps.memo.models.Task
 
@@ -62,7 +60,6 @@ class CardView(id: Int, card: Card, context: Context) : LinearLayout(context) {
         // Append all tasks of this card
         val taskContainer: LinearLayout = findViewById(R.id.tasks_container)
 
-
         for (task in card.tasks) {
             val row = LinearLayout(mContext)
             row.orientation = HORIZONTAL
@@ -79,8 +76,6 @@ class CardView(id: Int, card: Card, context: Context) : LinearLayout(context) {
                 else CheckBox(mContext, null, 0, R.style.CheckBoxLight)
 
             checkBox.setOnClickListener { view ->
-
-                Log.d("CHR_TEST", "setOnCheckedChangeListener")
 
                 val tasks = ArrayList<Task>()
 
@@ -123,5 +118,4 @@ class CardView(id: Int, card: Card, context: Context) : LinearLayout(context) {
 
         orientation = VERTICAL
     }
-
 }

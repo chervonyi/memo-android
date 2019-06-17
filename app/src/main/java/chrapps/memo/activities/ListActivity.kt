@@ -77,6 +77,11 @@ class ListActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.day_of_week_view).text = dayName
     }
 
+    /**
+     * Load appropriate theme according to themeStyleId which saved into via SharedPreferences.
+     * Also, according to saved theme, set appropriate image (white or black)
+     * for operating buttons (add, settings)
+     */
     private fun updateTheme() {
         val themeStyleId = PreferenceManager.getDefaultSharedPreferences(this)
             .getInt(SettingsActivity.THEME_KEY, R.style.CloudAppTheme)
@@ -100,6 +105,9 @@ class ListActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Go to CardActivity with slide animation to create a new card.
+     */
     fun goToCreateNewCard(view: View) {
         val intent = Intent(this, CardActivity::class.java)
         intent.putExtra(CardActivity.EDIT_CARD_ID, -1)
@@ -108,6 +116,10 @@ class ListActivity : AppCompatActivity() {
         overridePendingTransition(R.anim.enter_from_right, R.anim.exit_from_right)
     }
 
+    /**
+     * Go to CardActivity with slide animation to edit existed card.
+     * Also, this method puts id of required card to edit as intent extra
+     */
     fun goToEditCard(view: View) {
         val intent = Intent(this, CardActivity::class.java)
         intent.putExtra(CardActivity.EDIT_CARD_ID, view.tag as Int)
@@ -116,6 +128,9 @@ class ListActivity : AppCompatActivity() {
         overridePendingTransition(R.anim.enter_from_right, R.anim.exit_from_right)
     }
 
+    /**
+     * Go to SettingsActvity with slide animation
+     */
     fun goToSettings(view: View) {
         val intent = Intent(this, SettingsActivity::class.java)
         startActivity(intent)
@@ -123,10 +138,16 @@ class ListActivity : AppCompatActivity() {
         overridePendingTransition(R.anim.enter_from_right, R.anim.exit_from_right)
     }
 
+    /**
+     * Convert month sequence id [0..11] to appropriate name ["January", "February"...]
+     */
     private fun getMonthName(month: Int): String {
         return DateFormatSymbols().months[month]
     }
 
+    /**
+     * Convert day number of week [0..6] to appropriate name ["Monday", "Tuesday"...]
+     */
     private fun getDayName(dayOfWeek: Int): String {
         return when (dayOfWeek) {
             Calendar.MONDAY    -> "Monday"

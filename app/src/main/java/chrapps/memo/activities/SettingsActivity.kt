@@ -19,6 +19,11 @@ class SettingsActivity : AppCompatActivity() {
         updateTheme()
     }
 
+    /**
+     * Load appropriate theme according to themeStyleId which saved into via SharedPreferences.
+     * Also, according to saved theme, set appropriate image (white or black)
+     * for operating button (back)
+     */
     private fun updateTheme() {
         val themeStyleId = PreferenceManager.getDefaultSharedPreferences(this)
             .getInt(THEME_KEY, R.style.CloudAppTheme)
@@ -40,6 +45,9 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Go to ListActivity with slide animation
+     */
     fun goBack(view: View) {
         val intent = Intent(this, ListActivity::class.java)
         startActivity(intent)
@@ -47,6 +55,9 @@ class SettingsActivity : AppCompatActivity() {
         overridePendingTransition(R.anim.enter_from_left, R.anim.exit_from_left)
     }
 
+    /**
+     * Listener for buttons with different theme
+     */
     fun changeTheme(view: View) {
         when (view.id) {
             R.id.button_theme_cloud -> setNewTheme(R.style.CloudAppTheme)
@@ -55,9 +66,13 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Main method to save selected theme id into phone memory
+     * and then restart current activity to update app theme.
+     */
     private fun setNewTheme(themeStyleId: Int) {
+        // Save selected theme id into phone memory
         PreferenceManager.getDefaultSharedPreferences(this).edit().putInt(THEME_KEY, themeStyleId).apply()
-
         finish()
         startActivity(intent)
     }

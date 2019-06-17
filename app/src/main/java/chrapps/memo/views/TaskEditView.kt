@@ -27,7 +27,7 @@ class TaskEditView(context: Context?) : EditText(context) {
 
         setSingleLine(false)
 
-
+        // Set listener for "Done" button (on software keyboard)
         setOnEditorActionListener { textView, actionId, keyEvent ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
 
