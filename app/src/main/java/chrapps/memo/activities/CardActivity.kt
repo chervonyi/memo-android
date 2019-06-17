@@ -279,7 +279,18 @@ class CardActivity : AppCompatActivity() {
         selectedColorId = view.id
 
         // St 'check' image for selected imageButton
-        (view as ImageButton).setImageResource(R.drawable.ic_check_white)
+        val drawableName = view.tag as String
+
+        when (resources.getIdentifier(drawableName, "drawable", "chrapps.memo")) {
+            R.drawable.option_background_yellow,
+            R.drawable.option_background_red,
+            R.drawable.option_background_green,
+            R.drawable.option_background_cyan -> (view as ImageView).setImageResource(R.drawable.ic_check_black)
+
+            R.drawable.option_background_blue,
+            R.drawable.option_background_violet -> (view as ImageView).setImageResource(R.drawable.ic_check_white)
+        }
+
 
         checkIfAvailableToSubmit()
     }

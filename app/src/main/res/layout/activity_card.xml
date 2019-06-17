@@ -124,6 +124,7 @@
                     android:layout_height="match_parent"
                     android:foregroundGravity="center"
                     android:scaleType="centerCrop"
+                    android:tag="option_background_yellow"
                     android:padding="5dp"
                     android:background="@drawable/option_background_yellow"
                     android:onClick="selectOptionBackgroundColor"/>
@@ -143,6 +144,7 @@
                     android:layout_height="match_parent"
                     android:foregroundGravity="center"
                     android:scaleType="centerCrop"
+                    android:tag="option_background_red"
                     android:padding="5dp"
                     android:background="@drawable/option_background_red"
                     android:onClick="selectOptionBackgroundColor"/>
@@ -162,6 +164,7 @@
                     android:layout_height="match_parent"
                     android:foregroundGravity="center"
                     android:scaleType="centerCrop"
+                    android:tag="option_background_green"
                     android:padding="5dp"
                     android:background="@drawable/option_background_green"
                     android:onClick="selectOptionBackgroundColor"/>
@@ -181,6 +184,7 @@
                     android:layout_height="match_parent"
                     android:foregroundGravity="center"
                     android:scaleType="centerCrop"
+                    android:tag="option_background_cyan"
                     android:padding="5dp"
                     android:background="@drawable/option_background_cyan"
                     android:onClick="selectOptionBackgroundColor"/>
@@ -200,6 +204,7 @@
                     android:layout_height="match_parent"
                     android:foregroundGravity="center"
                     android:scaleType="centerCrop"
+                    android:tag="option_background_blue"
                     android:padding="5dp"
                     android:background="@drawable/option_background_blue"
                     android:onClick="selectOptionBackgroundColor"/>
@@ -218,6 +223,7 @@
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
                     android:foregroundGravity="center"
+                    android:tag="option_background_violet"
                     android:scaleType="centerCrop"
                     android:padding="5dp"
                     android:background="@drawable/option_background_violet"
