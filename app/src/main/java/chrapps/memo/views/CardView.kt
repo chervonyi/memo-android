@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.support.v4.content.ContextCompat
 import android.util.Log
+import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.widget.CheckBox
@@ -70,7 +71,7 @@ class CardView(id: Int, card: Card, context: Context) : LinearLayout(context) {
             val taskView = TextView(mContext)
             taskView.text = task.text
             taskView.setTextColor(ContextCompat.getColor(mContext, textColor))
-            taskView.textSize = 8 * resources.displayMetrics.scaledDensity
+            taskView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16.0f)
 
             // Load checkbox
             val checkBox =

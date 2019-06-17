@@ -3,6 +3,7 @@ package chrapps.memo.views
 import android.content.Context
 import android.graphics.Color
 import android.text.InputType
+import android.util.TypedValue
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import chrapps.memo.R
@@ -22,7 +23,7 @@ class TaskEditView(context: Context?) : EditText(context) {
         setBackgroundColor(Color.TRANSPARENT)
         imeOptions = EditorInfo.IME_ACTION_DONE
         inputType = InputType.TYPE_TEXT_FLAG_CAP_SENTENCES
-        textSize = 8 * resources.displayMetrics.scaledDensity
+        setTextSize(TypedValue.COMPLEX_UNIT_SP, 16.0f)
 
         setSingleLine(false)
 
