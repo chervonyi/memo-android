@@ -1,6 +1,5 @@
 ## Ocelot (Android)
 
-
 #### Implemented all of the ideas of this application and then published on the [Google Play.](https://play.google.com/store/apps/details?id=chrapps.memo)
 
 **Description:** _(from Google Play)_
@@ -24,6 +23,7 @@
 > * Plans set performance standards.
 > * Planning allows flexibility. 
 
+### [Change Log](https://github.com/chervonyi/memo-android/releases)
 
 ## Screenshots:
 <img src="https://i.imgur.com/0eA4cex.png" width="200"/> <img src="https://i.imgur.com/srpzFgO.png" width="200"/>
